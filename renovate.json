@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:js-app", "npm:unpublishSafe"],
+  "automerge": true,
+  "automergeType": "branch",
+  "npm": {
+    "minimumReleaseAge": "3 days"
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["typescript"],
+      "enabled": false
+    },
+    {
+      "matchPackagePatterns": ["eslint"],
+      "groupName": "eslint"
+    },
+    {
+      "matchPackagePatterns": ["angular"],
+      "groupName": "angular"
+    },
+    {
+      "groupName": "definitelyTyped",
+      "matchPackagePrefixes": ["@types/"]
+    },
+    {
+      "extends": "monorepo:graphqlcodegenerator",
+      "groupName": "graphqlcodegenerator monorepo",
+      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
+    }
+  ]
+}
