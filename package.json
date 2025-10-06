@@ -1,6 +1,6 @@
 {
-  "name": "base-angular",
-  "version": "0.0.0",
+  "name": "hiker_uk",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
