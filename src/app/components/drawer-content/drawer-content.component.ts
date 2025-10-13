@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
-// import { LayerType } from '../enums/layer-type.enum';
-// import { ViewType } from '../enums/view-type.enum';
-// import { BottomSheetService } from '../services/bottom-sheet.service';
 
 @Component({
   selector: 'app-drawer-content',
