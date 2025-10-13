@@ -1,10 +1,12 @@
 /* eslint-disable object-curly-newline */
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import WMTSLayer from '@arcgis/core/layers/WMTSLayer';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import Compass from '@arcgis/core/widgets/Compass';
 import ScaleBar from '@arcgis/core/widgets/ScaleBar';
 import Search from '@arcgis/core/widgets/Search';
+import { environment } from 'secrets';
 
 @Component({
   selector: 'app-map',
@@ -15,14 +17,18 @@ import Search from '@arcgis/core/widgets/Search';
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('mapView', { static: true }) mapViewDiv: ElementRef | undefined;
 
+  private OS_LAYER!: WMTSLayer;
+
   private mapView!: MapView;
 
   private map!: Map;
 
   ngOnInit(): void {
+    this.createWMTSLayer();
     this.map = new Map({
-      ground: 'world-elevation',
-      basemap: 'satellite',
+      basemap: {
+        baseLayers: [this.OS_LAYER],
+      },
     });
     this.initializeMapView();
     this.initialiazeWidgets();
@@ -38,9 +44,22 @@ export class MapComponent implements OnInit, OnDestroy {
     this.mapView = new MapView({
       container: this.mapViewDiv?.nativeElement,
       map: this.map,
-      center: [64, 41],
       zoom: 6,
     });
+  }
+
+  private createWMTSLayer(): void {
+    const wmtsLayer = new WMTSLayer({
+      url: 'https://api.os.uk/maps/raster/v1/wmts',
+      activeLayer: {
+        id: 'Outdoor', // or Outdoor / Light
+      },
+      // Important: add your API key
+      customParameters: {
+        key: environment.osMaps.apiKey,
+      },
+    });
+    this.OS_LAYER = wmtsLayer;
   }
 
   private initialiazeWidgets(): void {
