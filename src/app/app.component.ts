@@ -8,5 +8,4 @@ import { ComponentsComponent } from './components/components.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  public title = 'base-angular';
 }

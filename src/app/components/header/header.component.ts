@@ -12,6 +12,9 @@ import { SideNavService } from 'src/app/services/side-nav.service';
 export class HeaderComponent {
   constructor(public sidenavService: SideNavService) { }
 
+  /**
+   * The function `toggleSideNav` toggles the side navigation bar.
+   */
   public toggleSideNav(): void {
     this.sidenavService.toggle();
   }
