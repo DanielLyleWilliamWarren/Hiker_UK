@@ -1,30 +1,16 @@
 <nav class="relative top-0 left-0 flex items-center justify-around w-full h-20 px-16 bg-bgs-primary-earth">
   <div>
-    <button
-      class="menu-button"
-      (click)="toggleSideNav()"
-      mat-icon-button
-      aria-label="menu icon"
-    >
-      <mat-icon
-        class="text-bgs-primary-stone"
-      >
-        menu
-      </mat-icon>
-      <mat-icon
-        class="text-bgs-primary-stone"
-      >
-        menu_open
-      </mat-icon>
+    <button class="menu-button" (click)="toggleSideNav()" mat-icon-button aria-label="menu icon">
+      @let isOpen = sidenavService.sidenavStateObservable | async;
+
+      @if (!isOpen) {
+      <mat-icon class="text-bgs-primary-stone">menu</mat-icon>
+      } @else {
+      <mat-icon class="text-bgs-primary-stone">menu_open</mat-icon>
+      }
     </button>
   </div>
-  <div class="w-40 left">
-    <img
-      src="/assets/images/esri-10GlobeLogo_sRGB_.png"
-      alt="Logo"
-    />
-  </div>
   <div class="flex flex-col items-center justify-center w-3/4 text-center center">
-    <p class="!m-0 font-aileron-semibold text-white lg:text-1xl md:text-xl">Hiker</p>
+    <p class="!m-0 font-aileron-semibold text-white lg:text-1xl md:text-xl">Hiker UK</p>
   </div>
 </nav>
