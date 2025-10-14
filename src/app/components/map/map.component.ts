@@ -15,76 +15,72 @@ import { environment } from 'secrets';
   styleUrl: './map.component.scss',
 })
 export class MapComponent implements OnInit, OnDestroy {
-  @ViewChild('mapView', { static: true }) mapViewDiv: ElementRef | undefined;
+  @ViewChild('view', { static: true }) mapViewDiv: ElementRef | undefined;
 
-  private OS_LAYER!: WMTSLayer;
-
-  private mapView!: MapView;
-
-  private map!: Map;
+  private view!: MapView;
 
   ngOnInit(): void {
-    this.createWMTSLayer();
-    this.map = new Map({
-      basemap: {
-        baseLayers: [this.OS_LAYER],
-      },
-    });
-    this.initializeMapView();
+    this.initializeMap();
     this.initialiazeWidgets();
   }
 
   ngOnDestroy(): void {
-    if (this.mapView) {
-      this.mapView.destroy();
+    if (this.view) {
+      this.view.destroy();
     }
   }
 
-  private initializeMapView(): void {
-    this.mapView = new MapView({
-      container: this.mapViewDiv?.nativeElement,
-      map: this.map,
-      zoom: 6,
-    });
-  }
-
-  private createWMTSLayer(): void {
+  private initializeMap(): void {
     const wmtsLayer = new WMTSLayer({
-      url: 'https://api.os.uk/maps/raster/v1/wmts',
-      activeLayer: {
-        id: 'Outdoor', // or Outdoor / Light
-      },
-      // Important: add your API key
+      url: '/os-proxy',
+      activeLayer: { id: 'Outdoor_3857', tileMatrixSetId: 'EPSG:3857' },
+
       customParameters: {
         key: environment.osMaps.apiKey,
       },
+
+      copyright: 'Contains OS data © Crown copyright and database right 2023',
+
     });
-    this.OS_LAYER = wmtsLayer;
+
+    const map = new Map({
+      basemap: {
+        baseLayers: [wmtsLayer],
+      },
+    });
+
+    this.view = new MapView({
+      container: this.mapViewDiv?.nativeElement,
+      map,
+      center: [-3.435973, 52.378051],
+      constraints: { minScale: 2000, maxScale: 130000000 },
+      scale: 500000,
+    });
   }
 
   private initialiazeWidgets(): void {
     const searchWidget = new Search({
-      view: this.mapView,
+      view: this.view,
     });
 
     // Add the search widget to the top right corner of the view
-    this.mapView.ui.add(searchWidget, {
+    this.view.ui.add(searchWidget, {
       position: 'top-right',
     });
 
     const scaleBar = new ScaleBar({
-      view: this.mapView,
+      view: this.view,
       unit: 'dual',
     });
 
     // Add the ScaleBar widget to the view
-    this.mapView.ui.add(scaleBar, 'bottom-left');
+    this.view.ui.add(scaleBar, 'bottom-left');
 
     // Create the Compass widget
     const compass = new Compass({
-      view: this.mapView,
+      view: this.view,
     });
 
-    this.mapView.ui.add(compass, 'top-left');
+    this.view.ui.add(compass, 'top-left');
   }
 }

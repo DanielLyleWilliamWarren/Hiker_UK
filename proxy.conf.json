@@ -1,0 +1,10 @@
+{
+  "/os-proxy": {
+    "target": "https://api.os.uk/maps/raster/v1/wmts",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/os-proxy": ""
+    }
+  }
+}
