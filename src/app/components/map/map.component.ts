@@ -1,8 +1,7 @@
 /* eslint-disable object-curly-newline */
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Basemap from '@arcgis/core/Basemap';
 import WMTSLayer from '@arcgis/core/layers/WMTSLayer';
-import MapView from '@arcgis/core/views/MapView';
 import '@arcgis/map-components/dist/components/arcgis-compass';
 import '@arcgis/map-components/dist/components/arcgis-map';
 import '@arcgis/map-components/dist/components/arcgis-scale-bar';
@@ -17,19 +16,11 @@ import { environment } from 'secrets';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit {
   @ViewChild('view', { static: true }) mapViewDiv!: ElementRef;
-
-  private view!: MapView;
 
   ngOnInit(): void {
     this.initializeMap();
-  }
-
-  ngOnDestroy(): void {
-    if (this.view) {
-      this.view.destroy();
-    }
   }
 
   /**
@@ -47,7 +38,6 @@ export class MapComponent implements OnInit, OnDestroy {
       copyright: 'Contains OS data © Crown copyright and database right 2023',
     });
 
-    // Option 1: Add as a basemap
     const customBasemap = new Basemap({
       baseLayers: [wmtsLayer],
       title: 'OS Maps',
