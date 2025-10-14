@@ -30,17 +30,18 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * The initializeMap function creates a map with a WMTS layer showing topographic data and sets the initial
+   * view to the central highlands.
+   */
   private initializeMap(): void {
     const wmtsLayer = new WMTSLayer({
       url: '/os-proxy',
       activeLayer: { id: 'Outdoor_3857', tileMatrixSetId: 'EPSG:3857' },
-
       customParameters: {
         key: environment.osMaps.apiKey,
       },
-
       copyright: 'Contains OS data © Crown copyright and database right 2023',
-
     });
 
     const map = new Map({
@@ -52,35 +53,36 @@ export class MapComponent implements OnInit, OnDestroy {
     this.view = new MapView({
       container: this.mapViewDiv?.nativeElement,
       map,
-      center: [-3.435973, 52.378051],
+      center: [-4, 57],
       constraints: { minScale: 2000, maxScale: 130000000 },
-      scale: 500000,
+      scale: 1000000,
     });
   }
 
+  /**
+   * The function initializes and adds Search, ScaleBar, and Compass widgets to the view in a TypeScript
+   * application.
+   */
   private initialiazeWidgets(): void {
+    // Create the Search widget
     const searchWidget = new Search({
       view: this.view,
     });
-
-    // Add the search widget to the top right corner of the view
     this.view.ui.add(searchWidget, {
       position: 'top-right',
     });
 
+    // Create the ScaleBar widget
     const scaleBar = new ScaleBar({
       view: this.view,
       unit: 'dual',
     });
-
-    // Add the ScaleBar widget to the view
     this.view.ui.add(scaleBar, 'bottom-left');
 
     // Create the Compass widget
     const compass = new Compass({
       view: this.view,
     });
-
     this.view.ui.add(compass, 'top-left');
   }
 }
