@@ -2,6 +2,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Basemap from '@arcgis/core/Basemap';
 import WMTSLayer from '@arcgis/core/layers/WMTSLayer';
+import '@arcgis/map-components/components/arcgis-locate';
 import '@arcgis/map-components/dist/components/arcgis-compass';
 import '@arcgis/map-components/dist/components/arcgis-map';
 import '@arcgis/map-components/dist/components/arcgis-scale-bar';
