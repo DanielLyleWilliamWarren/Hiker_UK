@@ -1,13 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-// import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-// import { DrawerContentComponent } from './drawer-content/drawer-content.component';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { SideNavService } from '../services/side-nav.service';
 import { DrawerContentComponent } from './drawer-content/drawer-content.component';
 import { HeaderComponent } from './header/header.component';
 import { MapComponent } from './map/map.component';
-// import { MapComponent } from './map/map.component';
-// import { SideNavService } from './services/side-nav.service';
 
 @Component({
   selector: 'app-components',
