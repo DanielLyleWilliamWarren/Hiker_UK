@@ -41,6 +41,7 @@ export class MapComponent implements OnInit, OnDestroy {
       customParameters: {
         key: environment.osMaps.apiKey,
       },
+      serviceMode: 'KVP',
       copyright: 'Contains OS data © Crown copyright and database right 2023',
     });
 
